@@ -11,6 +11,8 @@ code to accomplish, so here it is.
 I don't plan on adding any features not currently present unless they also require
 very little code.
 
+Ships with es6 styled module and commonjs module for your rolling pleasure.
+
 ## Install
 
 ```sh

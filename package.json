@@ -1,0 +1,41 @@
+{
+  "name": "rage-route",
+  "version": "0.9.2",
+  "description": "Tiny, feature lite, super basic client router",
+  "main": "index.js",
+  "module": "module.js",
+  "files": [
+    "index.js",
+    "module.js"
+  ],
+  "scripts": {
+    "test": "ava --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doesdev/rage-route.git"
+  },
+  "keywords": [
+    "client",
+    "router"
+  ],
+  "author": "Andrew Carpenter (https://github.com/doesdev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doesdev/rage-route/issues"
+  },
+  "homepage": "https://github.com/doesdev/rage-route#readme",
+  "devDependencies": {
+    "ava": "^0.21.0",
+    "ghooks": "^2.0.0",
+    "rollup": "^0.41.6",
+    "semver": "^5.3.0",
+    "simple-git": "^1.72.0"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "node build",
+      "post-commit": "node post-commit"
+    }
+  }
+}

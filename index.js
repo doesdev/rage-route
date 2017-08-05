@@ -20,18 +20,20 @@ function addRedirect (oldPath, newPath) {
   routesAry.push(oldPath);
 }
 
-function route (path, title, state) {
+function route (path, title, state, noStore) {
   state = state || {};
-  let find = function (r) { return path.match(new RegExp(r)) || [] };
-  let key = routesAry.filter(find)[0];
-  let handler = routes[key];
+  var find = function (r) { return path.match(new RegExp(r)) || [] };
+  var key = routesAry.filter(find)[0];
+  var handler = routes[key];
   if (!handler) throw new Error('Handler not found for path: ' + path)
   title = title || handler.title || document.title;
   if (title && title !== document.title) document.title = title;
   history.previous = history.current;
   history.current = state.pathname = path;
-  let search = state.search = (window.location || {}).search || '';
-  if (winHist.pushState) winHist.pushState({}, title, path + '' + search);
+  var search = state.search = (window.location || {}).search || '';
+  if (winHist.pushState) {
+    winHist.pushState(noStore ? {} : state, title, path + '' + search);
+  }
   handler.cb(state);
 }
 

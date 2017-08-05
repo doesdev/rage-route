@@ -52,11 +52,12 @@ console.log(history.current)
 
 #### Route to another page, triggering callback set in addRoute
 
-#### `route(*path, *title, *state)`
+#### `route(*path, *title, *state, *noStore)`
 
 - **path** *[string - required]* (ex. `'/somepage'`)
 - **title** *[string - optional]* (ex. `'Page Title'`)
 - **state** *[object - optional]* (ex. `{foo: 'bar'}`)
+- **noStore** *[boolean - optional - don't store state in history]* (ex. `true`)
 
 #### We also expose a history object with the previous and current page
 

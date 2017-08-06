@@ -7,8 +7,9 @@ var routesAry = []
 
 // helpers
 function orderRoutes () {
-  var fz = routesAry.filter((p) => p.match(/\*/))
-  if (fz.length) routesAry = routesAry.filter((p) => !p.match(/\*/)).concat(fz)
+  var fz = routesAry.filter(function (p) { return p.match(/\*/) })
+  if (!fz.length) return
+  routesAry = routesAry.filter(function (p) { return !p.match(/\*/) }).concat(fz)
 }
 
 // main

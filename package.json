@@ -1,6 +1,6 @@
 {
   "name": "rage-route",
-  "version": "0.9.4",
+  "version": "1.0.0",
   "description": "Tiny, feature lite, super basic client router",
   "main": "index.js",
   "module": "module.js",
@@ -9,7 +9,7 @@
     "module.js"
   ],
   "scripts": {
-    "test": "ava --verbose"
+    "test": "node build && ava --verbose"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "ava": "^0.21.0",
     "ghooks": "^2.0.0",
+    "require-from-string": "^1.2.1",
     "rollup": "^0.41.6",
     "semver": "^5.3.0",
     "simple-git": "^1.72.0"

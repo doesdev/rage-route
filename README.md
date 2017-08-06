@@ -8,9 +8,6 @@ Because I had been running page.js and got rage pissed dealing with
 stagnant bugs causing client headaches. The features I used required very little
 code to accomplish, so here it is.
 
-I don't plan on adding any features not currently present unless they also require
-very little code.
-
 Ships with es6 styled module and commonjs module for your rolling pleasure.
 
 ## Install
@@ -43,12 +40,12 @@ console.log(history.current)
 - **title** *[string - required]* (ex. `'Page Title'`)
 - **callback** *[function - receives state object - required]* (ex. `(state) => fn(state)`)
 
-#### Add redirect from one page to another
+#### Add redirect from a new path to an existing path
 
-#### `addRedirect(*oldPath, *newPath)`
+#### `addRedirect(*newPath, *existingPath)`
 
-- **oldPath** *[string - required]* (ex. `'/someotherpage'`)
-- **newPath** *[string - required]* (ex. `'/somepage'`)
+- **newPath** *[string - required]* (ex. `'/someotherpage'`)
+- **existingPath** *[string - required]* (ex. `'/somepage'`)
 
 #### Route to another page, triggering callback set in addRoute
 
@@ -58,6 +55,10 @@ console.log(history.current)
 - **title** *[string - optional]* (ex. `'Page Title'`)
 - **state** *[object - optional]* (ex. `{foo: 'bar'}`)
 - **noStore** *[boolean - optional - don't store state in history]* (ex. `true`)
+
+#### Get array of registered routes
+
+#### `list()`
 
 #### We also expose a history object with the previous and current page
 

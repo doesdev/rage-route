@@ -5,24 +5,37 @@ var winHist = window.history || {}
 var routes = {}
 var routesAry = []
 
+// helpers
+function orderRoutes () {
+  var fz = routesAry.filter((p) => p.match(/\*/))
+  if (fz.length) routesAry = routesAry.filter((p) => !p.match(/\*/)).concat(fz)
+}
+
 // main
 export var history = {}
 
+export function list () { return routesAry }
+
 export function addRoute (path, title, cb) {
-  routes[path] = {cb: cb, title: title}
+  routes[path] = {path: path, cb: cb, title: title}
   routesAry.push(path)
+  orderRoutes()
 }
 
-export function addRedirect (oldPath, newPath) {
-  routes[oldPath] = routes[newPath]
-  routesAry.push(oldPath)
+export function addRedirect (newPath, existingPath) {
+  routes[newPath] = routes[existingPath]
+  routesAry.push(newPath)
+  orderRoutes()
 }
 
 export function route (path, title, state, noStore) {
   state = state || {}
-  var find = function (r) { return path.match(new RegExp(r)) || [] }
-  var key = routesAry.filter(find)[0]
-  var handler = routes[key]
+  var find = function (r) {
+    return r.match(/\*/) && path.match(new RegExp(r))
+  }
+  var handler = routes[path]
+  if (handler) path = handler.path
+  if (!handler) handler = routes[(routesAry.filter(find) || [])[0]]
   if (!handler) throw new Error('Handler not found for path: ' + path)
   title = title || handler.title || document.title
   if (title && title !== document.title) document.title = title

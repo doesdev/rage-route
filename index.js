@@ -2,58 +2,72 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+'use strict';
+
 // setup
-var winHist = window.history || {};
+
+var win = typeof window !== 'undefined' ? window : {};
+var doc = typeof document !== 'undefined' ? document : {};
+var winHist = win.history || {};
 var routes = {};
+
+// globals
 var routesAry = [];
 
 // helpers
-function orderRoutes () {
-  var fz = routesAry.filter(function (p) { return p.match(/\*/) });
-  if (!fz.length) return
-  routesAry = routesAry.filter(function (p) { return !p.match(/\*/) }).concat(fz);
-}
+var orderRoutes = function orderRoutes() {
+  var fz = routesAry.filter(function (p) {
+    return p.match(/\*/);
+  });
+  if (!fz.length) return;
+  routesAry = routesAry.filter(function (p) {
+    return !p.match(/\*/);
+  }).concat(fz);
+};
 
 // main
 var history = {};
 
-function list () { return routesAry }
+var list = function list() {
+  return routesAry;
+};
 
-function addRoute (path, title, cb) {
-  routes[path] = {path: path, cb: cb, title: title};
+var addRoute = function addRoute(path, title, cb) {
+  routes[path] = { path: path, cb: cb, title: title };
   routesAry.push(path);
   orderRoutes();
-}
+};
 
-function addRedirect (newPath, existingPath) {
+var addRedirect = function addRedirect(newPath, existingPath) {
   routes[newPath] = routes[existingPath];
   routesAry.push(newPath);
   orderRoutes();
-}
+};
 
-function route (path, title, state, noStore) {
+var route = function route(path, title, state, noStore) {
+  path = path || history.current;
   state = state || {};
-  var find = function (r) {
-    return r.match(/\*/) && path.match(new RegExp(r))
+  var find = function find(r) {
+    return r.match(/\*/) && path.match(new RegExp(r));
   };
   var handler = routes[path];
   if (handler) path = handler.path;
   if (!handler) handler = routes[(routesAry.filter(find) || [])[0]];
-  if (!handler) throw new Error('Handler not found for path: ' + path)
-  title = title || handler.title || document.title;
-  if (title && title !== document.title) document.title = title;
+  if (!handler) throw new Error('Handler not found for path: ' + path);
+  title = title || handler.title || doc.title;
+  if (title && title !== doc.title) doc.title = title;
   history.previous = history.current;
   history.current = state.pathname = path;
-  var search = state.search = (window.location || {}).search || '';
+  var search = state.search = (win.location || {}).search || '';
   if (winHist.pushState) {
     winHist.pushState(noStore ? {} : state, title, path + '' + search);
   }
   handler.cb(state);
-}
+};
 
-function updateUrl (path, title) {
-  if (title && title !== document.title) document.title = title;
-  winHist.pushState(null, title || document.title, path);
+function updateUrl(path, title) {
+  if (title && title !== doc.title) doc.title = title;
+  if (winHist.pushState) winHist.pushState(null, title || doc.title, path);
 }
 
 exports.history = history;

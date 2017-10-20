@@ -1,12 +1,7 @@
 'use strict'
 
 import test from 'ava'
-import requireString from 'require-from-string'
-const globals = '\nvar window = {};\nvar document = {};\n'
-const injectGlobals = (str) => str.replace(/\n/, globals)
-const fs = require('fs')
-const src = injectGlobals(fs.readFileSync('./index.js', 'utf8'))
-const { addRoute, route, list, addRedirect, history } = requireString(src)
+const { addRoute, route, list, addRedirect, history } = require('./index')
 
 // globals
 let val
@@ -21,6 +16,11 @@ test.serial(`addRoute adds a route, list shows that route`, (assert) => {
 
 test.serial(`route fails if no match`, (assert) => {
   assert.throws(() => route('/no/matching/path'))
+})
+
+test.serial(`re-routes to current path if no path specified`, (assert) => {
+  route('/somepage')
+  assert.notThrows(() => route())
 })
 
 test.serial(`default route works`, (assert) => {

@@ -57,9 +57,7 @@ var route = function route(path, title, state, noStore) {
   history.previous = history.current;
   history.current = state.pathname = path;
   if (winHist.pushState) {
-    var search = state.search = (win.location || {}).search || '';
-    if (path.indexOf(search) !== -1) search = '';
-    winHist.pushState(noStore ? {} : state, title, path + '' + search);
+    winHist.pushState(noStore ? {} : state, title, path);
   }
   handler.cb(state);
 };

@@ -1,5 +1,3 @@
-'use strict';
-
 // setup
 
 var win = typeof window !== 'undefined' ? window : {};
@@ -54,8 +52,9 @@ var route = function route(path, title, state, noStore) {
   if (title && title !== doc.title) doc.title = title;
   history.previous = history.current;
   history.current = state.pathname = path;
-  var search = state.search = (win.location || {}).search || '';
   if (winHist.pushState) {
+    var search = state.search = (win.location || {}).search || '';
+    if (path.match(search)) search = '';
     winHist.pushState(noStore ? {} : state, title, path + '' + search);
   }
   handler.cb(state);

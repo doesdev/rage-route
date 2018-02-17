@@ -54,3 +54,10 @@ test.serial(`history returns expected paths`, (assert) => {
   assert.is(history.previous, oldPath)
   assert.is(history.current, current)
 })
+
+test.serial(`regexed search route works as expected`, (assert) => {
+  let path = '/search?somekey=someval'
+  addRoute('/search?.*', 'Search Page', (s) => {})
+  route(path)
+  assert.is(history.current, path)
+})

@@ -22,7 +22,7 @@ export const history = {}
 export const list = () => routesAry
 
 export const addRoute = (path, title, cb) => {
-  routes[path] = {path: path, cb: cb, title: title}
+  routes[path] = { path: path, cb: cb, title: title }
   routesAry.push(path)
   orderRoutes()
 }

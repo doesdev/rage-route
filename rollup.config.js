@@ -2,9 +2,17 @@
 
 import rollBabel from 'rollup-plugin-babel'
 const babelOpts = {
-  presets: [['es2015', {modules: false}]],
-  plugins: ['external-helpers'],
-  babelrc: false
+  presets: [
+    [
+      '@babel/env',
+      {
+        modules: false,
+        useBuiltIns: 'entry',
+        targets: { browsers: ['ie > 8'] }
+      }
+    ]
+  ],
+  exclude: 'node_modules/**'
 }
 export default {
   input: 'source.js',

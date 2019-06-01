@@ -5,7 +5,7 @@ const { addRoute, route, list, addRedirect, history } = require('./index')
 
 // globals
 let val
-let state = {foo: 'bar'}
+let state = { foo: 'bar' }
 let oldPath = 'some/other/page'
 
 test.serial(`addRoute adds a route, list shows that route`, (assert) => {

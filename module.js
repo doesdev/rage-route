@@ -1,9 +1,8 @@
 var win = typeof window !== 'undefined' ? window : {};
 var doc = typeof document !== 'undefined' ? document : {};
 var winHist = win.history || {};
-var routes = {}; // globals
-
-var routesAry = []; // helpers
+var routes = {};
+var routesAry = [];
 
 var orderRoutes = function orderRoutes() {
   var fz = routesAry.filter(function (p) {
@@ -13,8 +12,7 @@ var orderRoutes = function orderRoutes() {
   routesAry = routesAry.filter(function (p) {
     return !p.match(/\*/);
   }).concat(fz);
-}; // main
-
+};
 
 var history = {};
 var list = function list() {

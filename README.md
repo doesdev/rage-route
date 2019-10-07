@@ -1,12 +1,10 @@
-# rage-route [![NPM version](https://badge.fury.io/js/rage-route.svg)](https://npmjs.org/package/rage-route)   [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)   [![Dependency Status](https://dependencyci.com/github/doesdev/rage-route/badge)](https://dependencyci.com/github/doesdev/rage-route)
+# rage-route [![NPM version](https://badge.fury.io/js/rage-route.svg)](https://npmjs.org/package/rage-route)   [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)   
 
 > Tiny, feature lite, super basic client router
 
 ## Why rage?
 
-Because I had been running page.js and got rage pissed dealing with
-stagnant bugs causing client headaches. The features I used required very little
-code to accomplish, so here it is.
+This was built as a very feature light replacement for page.js.
 
 Ships with es6 styled module and commonjs module for your rolling pleasure.
 

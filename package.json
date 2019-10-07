@@ -1,16 +1,16 @@
 {
   "name": "rage-route",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Tiny, feature lite, super basic client router",
   "main": "index.js",
-  "module": "module.js",
+  "module": "module.mjs",
   "files": [
     "index.js",
-    "module.js"
+    "module.mjs"
   ],
   "scripts": {
     "test": "rollup -c && mvt --verbose",
-    "precommit": "rollup -c && git add index.js module.js"
+    "precommit": "npm run test && git add index.js module.mjs"
   },
   "repository": {
     "type": "git",
@@ -27,13 +27,9 @@
   },
   "homepage": "https://github.com/doesdev/rage-route#readme",
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "husky": "^3.0.2",
+    "husky": "^3.0.8",
     "mvt": "^4.0.0",
-    "rollup": "^1.17.0",
-    "rollup-plugin-babel": "^4.3.3",
-    "simple-git": "^1.124.0"
+    "rollup": "^1.23.1"
   },
   "dependencies": {}
 }

@@ -61,6 +61,12 @@ test('registerComponent', (assert) => {
   registerComponent({ path, title: () => title, component: () => {} })
   route(path)
   assert.is(currentTitle(), title)
+
+  const title2 = 'Register Component 2'
+  const path2 = '/register-component-2'
+  registerComponent(path2, { title: () => title2, component: () => {} })
+  route(path2)
+  assert.is(currentTitle(), title2)
 })
 
 test('addRedirect redirects correctly', (assert) => {

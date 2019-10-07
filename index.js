@@ -75,7 +75,19 @@ function updateUrl (path, title) {
   if (winHist.pushState) winHist.pushState(null, title || doc.title, path);
 }
 
-function registerComponent ({ path, title, component }) {
+function registerComponent (path, opts) {
+  var pathIsString = typeof path === 'string';
+
+  if (!pathIsString) {
+    opts = path;
+    path = (opts || {}).path;
+  }
+
+  var title = (opts || {}).title;
+  var component = (opts || {}).component;
+
+  if (!(path && title && component)) throw new Error('Missing required params')
+
   addRoute(path, title, component);
 }
 

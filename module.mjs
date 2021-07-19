@@ -1,5 +1,7 @@
 'use strict'
 
+import params from 'tiny-params'
+
 var win = typeof window !== 'undefined' ? window : {}
 var doc = typeof document !== 'undefined' ? document : {}
 var winHist = win.history || {}
@@ -60,6 +62,8 @@ export function route (path, title, state, noStore) {
 
   history.previous = history.current
   history.current = state.pathname = path
+
+  state.queryParams = params((win.location || {}).search)
 
   if (winHist.pushState) {
     winHist.pushState(noStore ? {} : state, title, path)

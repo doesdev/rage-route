@@ -2,6 +2,12 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var params = require('tiny-params');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var params__default = /*#__PURE__*/_interopDefaultLegacy(params);
+
 var win = typeof window !== 'undefined' ? window : {};
 var doc = typeof document !== 'undefined' ? document : {};
 var winHist = win.history || {};
@@ -62,6 +68,8 @@ function route (path, title, state, noStore) {
 
   history.previous = history.current;
   history.current = state.pathname = path;
+
+  state.queryParams = params__default['default']((win.location || {}).search);
 
   if (winHist.pushState) {
     winHist.pushState(noStore ? {} : state, title, path);

@@ -93,6 +93,6 @@ test('regexed path with query string works as expected', (assert) => {
   addRoute('/search.*', 'Search Page', () => {})
   route(path, 'Regeed w/ query params', state)
 
-  assert.is(history.current, '/search')
+  assert.is(history.current, path)
   assert.deepEqual(state.queryParams, { somekey: 'someval' })
 })

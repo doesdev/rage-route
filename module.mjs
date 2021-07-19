@@ -61,12 +61,12 @@ export function route (pathIn, title, state, noStore) {
   if (title && title !== doc.title) doc.title = title
 
   history.previous = history.current
-  history.current = state.pathname = path
+  history.current = state.pathname = pathIn
 
   state.queryParams = params('?' + search)
 
   if (winHist.pushState) {
-    winHist.pushState(noStore ? {} : state, title, path)
+    winHist.pushState(noStore ? {} : state, title, pathIn)
   }
 
   handler.cb(state)

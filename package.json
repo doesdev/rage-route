@@ -1,6 +1,6 @@
 {
   "name": "rage-route",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Tiny, feature lite, super basic client router",
   "main": "index.js",
   "module": "module.mjs",

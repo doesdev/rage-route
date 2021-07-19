@@ -67,7 +67,8 @@ function route (pathIn, title, state, noStore) {
   if (title && title !== doc.title) doc.title = title;
 
   history.previous = history.current;
-  history.current = state.pathname = pathIn;
+  history.current = pathIn;
+  state.pathname = path;
 
   state.queryParams = params__default['default']('?' + search);
 

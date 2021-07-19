@@ -38,8 +38,8 @@ export function addRedirect (newPath, existingPath) {
   orderRoutes()
 }
 
-export function route (path, title, state, noStore) {
-  path = path || history.current
+export function route (pathIn, title, state, noStore) {
+  let [path, search] = (pathIn || history.current || '').split('?')
   state = state || {}
 
   function find (r) { return r.match(/\*/) && path.match(new RegExp(r)) }
@@ -63,7 +63,7 @@ export function route (path, title, state, noStore) {
   history.previous = history.current
   history.current = state.pathname = path
 
-  state.queryParams = params((win.location || {}).search)
+  state.queryParams = params('?' + search)
 
   if (winHist.pushState) {
     winHist.pushState(noStore ? {} : state, title, path)

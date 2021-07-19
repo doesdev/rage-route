@@ -44,8 +44,8 @@ function addRedirect (newPath, existingPath) {
   orderRoutes();
 }
 
-function route (path, title, state, noStore) {
-  path = path || history.current;
+function route (pathIn, title, state, noStore) {
+  let [path, search] = (pathIn || history.current || '').split('?');
   state = state || {};
 
   function find (r) { return r.match(/\*/) && path.match(new RegExp(r)) }
@@ -69,7 +69,7 @@ function route (path, title, state, noStore) {
   history.previous = history.current;
   history.current = state.pathname = path;
 
-  state.queryParams = params__default['default']((win.location || {}).search);
+  state.queryParams = params__default['default']('?' + search);
 
   if (winHist.pushState) {
     winHist.pushState(noStore ? {} : state, title, path);

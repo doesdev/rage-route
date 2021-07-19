@@ -11,8 +11,6 @@ const {
   registerComponent
 } = require('./index')
 
-let val
-const state = { foo: 'bar' }
 const oldPath = 'some/other/page'
 
 test('addRoute adds a route, list shows that route', (assert) => {
@@ -31,7 +29,7 @@ test('re-routes to current path if no path specified', (assert) => {
 })
 
 test('default route works', (assert) => {
-  addRoute('.*', 'Page Title', (state) => {})
+  addRoute('.*', 'Page Title', () => {})
   assert.notThrows(() => route('/no/matching/path'))
 })
 
@@ -42,6 +40,8 @@ test('explicit route supercedes regex route', (assert) => {
 })
 
 test('route fires callback with state', (assert) => {
+  let val
+  const state = { foo: 'bar' }
   addRoute(oldPath, 'Other Page', (s) => { val = s })
   route(oldPath, 'Some Title', state)
   assert.is(val.foo, 'bar')
@@ -69,24 +69,30 @@ test('registerComponent', (assert) => {
   assert.is(currentTitle(), title2)
 })
 
-test('addRedirect redirects correctly', (assert) => {
-  const newPath = 'yet/another/page'
-  addRedirect(newPath, oldPath)
-  state.bar = 'foo'
-  route(newPath, 'Some Title', state)
-  assert.is(val.bar, 'foo')
-})
-
 test('history returns expected paths', (assert) => {
   const current = 'unspecified/path'
+  route(oldPath)
   route(current)
   assert.is(history.previous, oldPath)
   assert.is(history.current, current)
 })
 
-test('regexed search route works as expected', (assert) => {
+test('addRedirect redirects correctly', (assert) => {
+  const state = { foo: 'bar' }
+  const redirectedPath = '/jimmy'
+  addRoute(redirectedPath, 'Jimmy', (s) => { s.bar = 'foo' })
+  const newPath = 'yet/another/page'
+  addRedirect(newPath, redirectedPath)
+  route(newPath, 'Some Title', state)
+  assert.is(state.bar, 'foo')
+})
+
+test('regexed path with query string works as expected', (assert) => {
+  const state = { foo: 'bar' }
   const path = '/search?somekey=someval'
-  addRoute('/search?.*', 'Search Page', (s) => {})
-  route(path)
-  assert.is(history.current, path)
+  addRoute('/search.*', 'Search Page', () => {})
+  route(path, 'Regeed w/ query params', state)
+
+  assert.is(history.current, '/search')
+  assert.deepEqual(state.queryParams, { somekey: 'someval' })
 })

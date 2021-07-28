@@ -39,6 +39,8 @@ export function addRedirect (newPath, existingPath) {
 }
 
 export function route (pathIn, title, state, noStore) {
+  pathIn = pathIn || history.current || (win.location || {}).pathname || ''
+
   let [path, search] = (pathIn || history.current || '').split('?')
   state = state || {}
 
